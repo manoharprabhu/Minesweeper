@@ -1,4 +1,4 @@
-input {
+button {
    border-top: 1px solid #96d1f8;
    background: #65a9d7;
    background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
@@ -22,12 +22,12 @@ input {
    width:40px;
    height:40px;
    }
-input:hover {
+button:hover {
    border-top-color: #28597a;
    background: #28597a;
    color: #ccc;
    }
-input:active {
+button:active {
    border-top-color: #1b435e;
    background: #1b435e;
    }
@@ -35,4 +35,8 @@ input:active {
 .bodyClass{
 	margin-left: 30%;
 	margin-top: 5%;
+}
+
+.square_Cells{
+	color:white;
 }
