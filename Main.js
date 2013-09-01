@@ -13,7 +13,7 @@ function Create2DArray(rows) {
 function squareClick(row,col){
 	reccursionCount++;
 	
-	if(parseInt(row) < 1 || parseInt(col) < 1 || parseInt(row) > 10 || parseInt(col) > 10)
+	if(parseInt(row) < 0 || parseInt(col) < 0 || parseInt(row) > 11 || parseInt(col) > 11)
 	return;
 	//alert($('#button_'+row+'_'+col).css("background-color"));
 	if(document.getElementById('button_'+row+'_'+col).style.backgroundColor == "green" )
@@ -25,6 +25,7 @@ function squareClick(row,col){
 		gameOver();
 		return;
 	} else {
+		$('#button_'+row+'_'+col).css("background","green");
 		if(minesArray[row-1][col-1] == false &&
 			minesArray[row-1][col] == false  &&
 			minesArray[row-1][col+1] == false  &&
@@ -33,9 +34,6 @@ function squareClick(row,col){
 			minesArray[row+1][col-1] == false  &&
 			minesArray[row+1][col] == false  &&
 			minesArray[row+1][col+1] == false ) {
-				
-			$('#button_'+row+'_'+col).css("background","green");
-			
 				
 			squareClick(row-1,col-1);
 			squareClick(row-1,col);
@@ -115,7 +113,7 @@ function drawGrid(){
   	   htmlString += "<tr>";
   	   for(col=0;col<=11;col++){
   		   if(row==0 || row == 11 || col == 0 || col == 11) {
-  		   	htmlString += "<td><button id=\"button_"+row+"_"+col+"\" style=\"background-color:green;display:none;\" \></td>";
+  		   	htmlString += "<td><button id=\"button_"+row+"_"+col+"\" class=\"square_cells\"/ style=\"background:green; visibility:hidden;\" \></td>";
   		   } else {
   		 htmlString += "<td><button id=\"button_"+row+"_"+col+"\" class=\"square_cells\"/ onclick=\"initiateSquareClick("+row+","+col+");\"></td>";
   		 }  
