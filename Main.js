@@ -11,11 +11,10 @@ function Create2DArray(rows) {
 
 
 function squareClick(row,col){
-	reccursionCount++;
 	
 	if(parseInt(row) < 0 || parseInt(col) < 0 || parseInt(row) > 11 || parseInt(col) > 11)
 	return;
-	//alert($('#button_'+row+'_'+col).css("background-color"));
+
 	if(document.getElementById('button_'+row+'_'+col).style.backgroundColor == "green" )
 	return;
 	
@@ -126,8 +125,14 @@ function drawGrid(){
     
     minesArray = Create2DArray(20);
     
-    for(row=1;row<=10;row++){
-    	for(col=1;col<=10;col++){
+    for(row=0;row<=11;row++){
+    	for(col=0;col<=11;col++){
+		
+		if(row==0 || col == 0 || row == 11 || col == 11)
+		{
+		minesArray[row][col] = false;
+		continue;
+		}
     		if(Math.floor(Math.random()*10) == 0 ) {
     		minesArray[row][col] = true;
     		}
