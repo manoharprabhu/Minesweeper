@@ -1,5 +1,9 @@
 var minesArray;
 var reccursionCount = 0;
+
+var numberOfRows=10;
+var numberOfCols=10;
+
 function Create2DArray(rows) {
   var arr = [];
 
@@ -13,7 +17,7 @@ function Create2DArray(rows) {
 function squareClick(row,col){
 	
 	//Prevent reccursion from running off the grid bounds
-	if(parseInt(row) < 0 || parseInt(col) < 0 || parseInt(row) > 11 || parseInt(col) > 11)
+	if(parseInt(row) < 0 || parseInt(col) < 0 || parseInt(row) > (numberOfRows+1) || parseInt(col) > (numberOfCols+1))
 	return;
 	
 	//Do not explore the grid if the current cell has already been explored
@@ -89,8 +93,8 @@ function initiateSquareClick(row,col)
 	var i,j;
 	
 	//Update the mine count that shows up on the uncovered cells.
-	for(i=1;i<=10;i++){
-		for(j=1;j<=10;j++){
+	for(i=1;i<=numberOfRows;i++){
+		for(j=1;j<=numberOfCols;j++){
 			if(document.getElementById('button_'+i+'_'+j).style.backgroundColor == "green" ){
 				$('#button_'+i+'_'+j).html(getCountOfAdjacentMines(i,j));
 				$('#button_'+i+'_'+j).css("color","white");	
@@ -111,10 +115,10 @@ function drawGrid(){
      col=0;
      
 	 //Draw the grid on the page. Also, have a extra row and column at beggining and end of the grid to define the boundary
-     for(row=0;row<=11;row++) {
+     for(row=0;row<=(numberOfRows+1);row++) {
   	   htmlString += "<tr>";
-  	   for(col=0;col<=11;col++){
-  		   if(row==0 || row == 11 || col == 0 || col == 11) {
+  	   for(col=0;col<=(numberOfCols+1);col++){
+  		   if(row==0 || row == (numberOfRows+1) || col == 0 || col == (numberOfCols+1)) {
   		   	htmlString += "<td><button id=\"button_"+row+"_"+col+"\" class=\"square_cells\"/ style=\"background:green; visibility:hidden;\" \></td>";
   		   } else {
   		 htmlString += "<td><button id=\"button_"+row+"_"+col+"\" class=\"square_cells\"/ onclick=\"initiateSquareClick("+row+","+col+");\"></td>";
@@ -126,13 +130,13 @@ function drawGrid(){
      htmlString += "</table>";
     $('#mainGrid').html(htmlString);
     
-    minesArray = Create2DArray(20);
+    minesArray = Create2DArray((numberOfRows + 1)*(numberOfCols + 1));
     
 	//Generate a mine field.
-    for(row=0;row<=11;row++){
-    	for(col=0;col<=11;col++){
+    for(row=0;row<=numberOfRows+1;row++){
+    	for(col=0;col<=numberOfCols+1;col++){
 		
-		if(row==0 || col == 0 || row == 11 || col == 11)
+		if(row==0 || col == 0 || row == numberOfRows+1 || col == numberOfCols+1)
 		{
 		minesArray[row][col] = false;
 		continue;
