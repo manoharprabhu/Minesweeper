@@ -1,6 +1,6 @@
 var minesArray;
 var reccursionCount = 0;
-
+var gameEnd = false;
 var numberOfRows=10;
 var numberOfCols=10;
 
@@ -15,6 +15,9 @@ function Create2DArray(rows) {
 
 
 function squareClick(row,col){
+
+	if(gameEnd == true)
+	return;
 	
 	//Prevent reccursion from running off the grid bounds
 	if(parseInt(row) < 0 || parseInt(col) < 0 || parseInt(row) > (numberOfRows+1) || parseInt(col) > (numberOfCols+1))
@@ -89,8 +92,12 @@ function getCountOfAdjacentMines(i,j){
 
 function initiateSquareClick(row,col)
 {
+
 	squareClick(row,col);
 	var i,j;
+
+	if(gameEnd == true)
+	return;
 	
 	//Update the mine count that shows up on the uncovered cells.
 	for(i=1;i<=numberOfRows;i++){
@@ -105,7 +112,18 @@ function initiateSquareClick(row,col)
 }
 
 function gameOver(){
-	alert("gameover");
+	var i,j;
+
+	for(i=1;i<=numberOfRows;i++) {
+		for(j=1;j<=numberOfCols;j++) {
+			if(minesArray[i][j] == true) {
+				$('#button_'+i+'_'+j).css('background','red');
+				$('#button_'+i+'_'+j).html("M");
+
+			}
+		}
+	}
+	gameEnd = true;
 }
 
 function drawGrid(){
@@ -141,7 +159,7 @@ function drawGrid(){
 		minesArray[row][col] = false;
 		continue;
 		}
-    		if(Math.floor(Math.random()*10) == 0 ) {
+    		if(Math.floor(Math.random()*5) <2 ) {
     		minesArray[row][col] = true;
     		}
     		else {
