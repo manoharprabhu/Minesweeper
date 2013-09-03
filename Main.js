@@ -3,6 +3,7 @@ var reccursionCount = 0;
 var gameEnd = false;
 var numberOfRows=10;
 var numberOfCols=10;
+var firstClick;
 
 function Create2DArray(rows) {
   var arr = [];
@@ -93,6 +94,31 @@ function getCountOfAdjacentMines(i,j){
 function initiateSquareClick(row,col)
 {
 
+	//On fitst click, the cell should never contain any mine. If it does, remove the mine from that cell and place it in another empty cell.
+	if(firstClick == true) {
+		if(minesArray[row][col] == true) {
+			//Remove mine from that cell
+			minesArray[row][col] = false;
+			
+			//Pick a random empty cell and place the mine there.
+			var newRow;
+			var newCol;
+			while(true){
+				newRow = Math.floor(Math.random()*numberOfRows) + 1;
+				newCol = Math.floor(Math.random()*numberOfCols) + 1;
+				if(minesArray[newRow][newCol] == false) {
+				break;
+				}
+			}
+			
+			minesArray[newRow][newCol] = true;
+			
+		}
+	
+		//reset the flag;
+		firstClick = false;
+	}
+	
 	squareClick(row,col);
 	var i,j;
 
@@ -131,6 +157,7 @@ function drawGrid(){
      var row,col;
      row=0;
      col=0;
+	 firstClick = true;
      
 	 //Draw the grid on the page. Also, have a extra row and column at beggining and end of the grid to define the boundary
      for(row=0;row<=(numberOfRows+1);row++) {
@@ -159,7 +186,7 @@ function drawGrid(){
 		minesArray[row][col] = false;
 		continue;
 		}
-    		if(Math.floor(Math.random()*5) <2 ) {
+    		if(Math.floor(Math.random()*3) <1 ) {
     		minesArray[row][col] = true;
     		}
     		else {
