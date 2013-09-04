@@ -56,10 +56,7 @@ function squareClick(row,col){
 			squareClick(row+1,col+1);
 				
 			
-			} else {
-				$('#button_'+row+'_'+col).css("background","green");
-			}
-		
+			} 
 	}
 }
 
@@ -158,6 +155,7 @@ function drawGrid(){
      row=0;
      col=0;
 	 firstClick = true;
+	 gameEnd = false;
      
 	 //Draw the grid on the page. Also, have a extra row and column at beggining and end of the grid to define the boundary
      for(row=0;row<=(numberOfRows+1);row++) {
@@ -186,7 +184,7 @@ function drawGrid(){
 		minesArray[row][col] = false;
 		continue;
 		}
-    		if(Math.floor(Math.random()*3) <1 ) {
+    		if(Math.floor(Math.random()*10) <1 ) {
     		minesArray[row][col] = true;
     		}
     		else {
