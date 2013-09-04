@@ -4,6 +4,7 @@ var gameEnd = false;
 var numberOfRows=10;
 var numberOfCols=10;
 var firstClick;
+var numberOfMines = 4;
 
 function Create2DArray(rows) {
   var arr = [];
@@ -91,7 +92,7 @@ function getCountOfAdjacentMines(i,j){
 function initiateSquareClick(row,col)
 {
 
-	//On fitst click, the cell should never contain any mine. If it does, remove the mine from that cell and place it in another empty cell.
+	//On first click, the cell should never contain any mine. If it does, remove the mine from that cell and place it in another empty cell.
 	if(firstClick == true) {
 		if(minesArray[row][col] == true) {
 			//Remove mine from that cell
@@ -123,20 +124,41 @@ function initiateSquareClick(row,col)
 	return;
 	
 	//Update the mine count that shows up on the uncovered cells.
+	var greenCellCount;
+	greenCellCount = 0;
 	for(i=1;i<=numberOfRows;i++){
 		for(j=1;j<=numberOfCols;j++){
 			if(document.getElementById('button_'+i+'_'+j).style.backgroundColor == "green" ){
+				greenCellCount++;
 				$('#button_'+i+'_'+j).html(getCountOfAdjacentMines(i,j));
 				$('#button_'+i+'_'+j).css("color","white");	
 				$('#button_'+row+'_'+col).css("background","green");
 			}
 		}
 	}
+	
+	//Update label on UI
+	 $('#numberOfSquaresLeft').html((numberOfRows*numberOfCols) - numberOfMines - greenCellCount);
+	 
+	 //Game has been won.
+	 if(((numberOfRows*numberOfCols) - numberOfMines - greenCellCount) == 0) {
+		gameWon();
+	 }
+	
+}
+
+function gameWon(){
+	gameEnd = true;
+	$('#gameStatus').html("You Won");
+	$('#gameStatus').css('color','green');
 }
 
 function gameOver(){
 	var i,j;
 
+	$('#gameStatus').html("You Lose");
+	$('#gameStatus').css('color','red');
+	
 	for(i=1;i<=numberOfRows;i++) {
 		for(j=1;j<=numberOfCols;j++) {
 			if(minesArray[i][j] == true) {
@@ -156,6 +178,8 @@ function drawGrid(){
      col=0;
 	 firstClick = true;
 	 gameEnd = false;
+	 $('#gameStatus').html("");
+	 $('#numberOfSquaresLeft').html((numberOfRows*numberOfCols) - numberOfMines);
      
 	 //Draw the grid on the page. Also, have a extra row and column at beggining and end of the grid to define the boundary
      for(row=0;row<=(numberOfRows+1);row++) {
@@ -176,21 +200,26 @@ function drawGrid(){
     minesArray = Create2DArray((numberOfRows + 1)*(numberOfCols + 1));
     
 	//Generate a mine field.
+    
+    //initialize all fields to false. (no mines)
     for(row=0;row<=numberOfRows+1;row++){
     	for(col=0;col<=numberOfCols+1;col++){
-		
-		if(row==0 || col == 0 || row == numberOfRows+1 || col == numberOfCols+1)
-		{
-		minesArray[row][col] = false;
-		continue;
-		}
-    		if(Math.floor(Math.random()*10) <1 ) {
-    		minesArray[row][col] = true;
-    		}
-    		else {
-    		minesArray[row][col] = false;
-    		}
+			minesArray[row][col] = false;
     	}
     }
-   
+    
+    //	Randomly place some mines on the field. The number is determined by the variable 
+    // 	numberOfMines
+    var iterationCount = numberOfMines;
+	while(iterationCount > 0) {
+		var tempRow = Math.floor(Math.random()*numberOfRows) + 1;
+		var tempCol = Math.floor(Math.random()*numberOfCols) + 1;
+		
+		if(minesArray[tempRow][tempCol] == false) {
+			minesArray[tempRow][tempCol] = true;
+			iterationCount--;
+		}
+		
+	}
+		
 }
