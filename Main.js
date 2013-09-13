@@ -1,11 +1,26 @@
+//Holds the mines location
 var minesArray;
-var reccursionCount = 0;
-var gameEnd = false;
-var numberOfRows=10;
-var numberOfCols=10;
-var firstClick;
-var numberOfMines = 4;
 
+//Dummy variable to count reccursion depth (performance testing)
+var reccursionCount = 0;
+
+//Check if game has ended.
+var gameEnd = false;
+
+//Number of rows in the grid
+var numberOfRows=10;
+
+//Number of columns in grid
+var numberOfCols=10;
+
+//variable to check whether it is the first click on the grid. (To prevent the first click landing on a mine and ending game)
+var firstClick;
+
+//Number of mines in the grid.
+var numberOfMines = 10;
+
+
+//Create a 2 dimensional array and return it back.
 function Create2DArray(rows) {
   var arr = [];
 
@@ -16,8 +31,9 @@ function Create2DArray(rows) {
 }
 
 
-function squareClick(row,col){
 
+function squareClick(row,col){
+//IF you try to explore the grid after clicking on mine, nothing happens
 	if(gameEnd == true)
 	return;
 	
@@ -29,7 +45,7 @@ function squareClick(row,col){
 	if(document.getElementById('button_'+row+'_'+col).style.backgroundColor == "green" )
 	return;
 	
-	
+//If current click lands on mine, BOOM ;)	
 	if(minesArray[row][col] == true )
 	{
 		//If the current cell contains mine, game over ;)
@@ -47,6 +63,7 @@ function squareClick(row,col){
 			minesArray[row+1][col] == false  &&
 			minesArray[row+1][col+1] == false ) {
 				
+			//Breadth first search
 			squareClick(row-1,col-1);
 			squareClick(row-1,col);
 			squareClick(row-1,col+1);
@@ -212,6 +229,8 @@ function drawGrid(){
     // 	numberOfMines
     var iterationCount = numberOfMines;
 	while(iterationCount > 0) {
+
+		//Generate a random row and column number between 1 to N 
 		var tempRow = Math.floor(Math.random()*numberOfRows) + 1;
 		var tempCol = Math.floor(Math.random()*numberOfCols) + 1;
 		
