@@ -14,33 +14,45 @@
 
 		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
 
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script src="Main.js" type="text/javascript"> </script>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="Main.js" type="text/javascript"></script>
 		<link rel="stylesheet" href="bootstrap.min.css" />
 		<link rel = "stylesheet" href="main.css"/>
 	</head>
-	
 
 	<body>
-		
+
 		<div class="bodyClass">
 			<div id="mainGrid" >
-				
+
 			</div>
 			<script type="text/javascript">
-			//Call the draw grid function to draw the minesweeper grid
-			$(document).ready(function () {
-			 drawGrid();
-			 });
+				//Call the draw grid function to draw the minesweeper grid
+				$(document).ready(function() {
+					drawGrid();
+				});
 			</script>
 		</div>
 		<!-- A panel on left side to display game info. Incomplete-->
 		<div class="leftPanel">
-		<button class="restartButton" onclick="drawGrid();">Restart Game</button><br />
-		 <label>Number of Squares left: </label> </label><label id="numberOfSquaresLeft"> </label><br />
-		 <label id="gameStatus"></label>
-		 
+			<table border="solid" cellpadding="20px" style="margin-top: 200px" class="infoTable">
+				<tr>
+					<td colspan="2">
+					<button class="restartButton" onclick="drawGrid();">
+						Restart Game
+					</button>
+					<br />
+					</td>
+				</tr>
+				<tr>
+					<td><label>Number of Squares left: </label></td><td></label><label id="numberOfSquaresLeft"> </label></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: center"><label id="gameStatus"></label></td>
+				</tr>
+			</table>
+
 		</div>
 	</body>
 </html>
