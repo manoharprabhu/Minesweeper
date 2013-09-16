@@ -36,7 +36,7 @@
 		</div>
 		<!-- A panel on left side to display game info. Incomplete-->
 		<div class="leftPanel">
-			<table border="solid" cellpadding="20px" style="margin-top: 200px" class="infoTable">
+			<table width="100%" cellpadding="20px" style="margin-top: 200px" class="infoTable">
 				<tr>
 					<td colspan="2">
 					<button class="restartButton" onclick="drawGrid();">
@@ -46,10 +46,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label>Number of Squares left: </label></td><td></label><label id="numberOfSquaresLeft"> </label></td>
+					<td><label class="threeDimensionText">Number of Squares left: </label></td><td><label id="numberOfSquaresLeft" class="threeDimensionText"> </label></td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: center"><label id="gameStatus"></label></td>
+					<td colspan="2"><label id="gameStatus"></label></td>
 				</tr>
 			</table>
 

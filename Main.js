@@ -17,7 +17,7 @@ var numberOfCols=10;
 var firstClick;
 
 //Number of mines in the grid.
-var numberOfMines = 10;
+var numberOfMines = 2;
 
 
 //Create a 2 dimensional array and return it back.
@@ -168,13 +168,18 @@ function gameWon(){
 	gameEnd = true;
 	$('#gameStatus').html("You Won");
 	$('#gameStatus').css('color','green');
+	
+	$('#gameStatus').removeClass("gameStatusLose");
+	$('#gameStatus').addClass("gameStatusWin");
 }
 
 function gameOver(){
 	var i,j;
 
 	$('#gameStatus').html("You Lose");
-	$('#gameStatus').css('color','red');
+	
+	$('#gameStatus').removeClass("gameStatusWin");
+	$('#gameStatus').addClass("gameStatusLose");
 	
 	for(i=1;i<=numberOfRows;i++) {
 		for(j=1;j<=numberOfCols;j++) {
