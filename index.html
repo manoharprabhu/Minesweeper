@@ -36,7 +36,10 @@
 		</div>
 		<!-- A panel on left side to display game info. Incomplete-->
 		<div class="leftPanel">
-			<table width="100%" cellpadding="20px" style="margin-top: 200px" class="infoTable">
+			<div id="timeStatus" style="margin-top: 200px" class="threeDimensionText">
+				<span id="timeMinutes">00</span><span> : </span><span id="timeSeconds">00</span>
+			</div>
+			<table width="100%" cellpadding="20px" class="infoTable">
 				<tr>
 					<td colspan="2">
 					<button class="restartButton" onclick="drawGrid();">

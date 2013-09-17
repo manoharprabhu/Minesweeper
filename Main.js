@@ -19,6 +19,7 @@ var firstClick;
 //Number of mines in the grid.
 var numberOfMines = 2;
 
+var timerObject;
 
 //Create a 2 dimensional array and return it back.
 function Create2DArray(rows) {
@@ -31,6 +32,36 @@ function Create2DArray(rows) {
 }
 
 
+function updateTime(){
+	var seconds = parseInt($('#timeSeconds').text());
+	var minutes = parseInt($('#timeMinutes').text());
+	
+	seconds = seconds + 1;
+	
+	if(seconds == 60){
+		minutes++;
+		seconds = 0;
+	}
+	
+	if(seconds>=10) {
+	$('#timeSeconds').html(seconds);
+	} else {
+		$('#timeSeconds').html('0'+seconds);
+	}
+	
+	if(minutes>=10) {
+	$('#timeMinutes').html(minutes);
+	} else {
+		$('#timeMinutes').html('0'+minutes);
+	}
+	
+}
+
+function resetTime(){
+	clearTimeout(timerObject);
+	$('#timeSeconds').html("00");
+	$('#timeMinutes').html("00");
+}
 
 function squareClick(row,col){
 //IF you try to explore the grid after clicking on mine, nothing happens
@@ -130,6 +161,7 @@ function initiateSquareClick(row,col)
 			
 		}
 	
+		timerObject = setInterval("updateTime()",1000);
 		//reset the flag;
 		firstClick = false;
 	}
@@ -165,6 +197,7 @@ function initiateSquareClick(row,col)
 }
 
 function gameWon(){
+	clearInterval(timerObject);
 	gameEnd = true;
 	$('#gameStatus').html("You Won");
 	$('#gameStatus').css('color','green');
@@ -175,7 +208,7 @@ function gameWon(){
 
 function gameOver(){
 	var i,j;
-
+	clearInterval(timerObject);
 	$('#gameStatus').html("You Lose");
 	
 	$('#gameStatus').removeClass("gameStatusWin");
@@ -202,6 +235,7 @@ function drawGrid(){
 	 gameEnd = false;
 	 $('#gameStatus').html("");
 	 $('#numberOfSquaresLeft').html((numberOfRows*numberOfCols) - numberOfMines);
+	 resetTime();
      
 	 //Draw the grid on the page. Also, have a extra row and column at beggining and end of the grid to define the boundary
      for(row=0;row<=(numberOfRows+1);row++) {

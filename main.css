@@ -24,7 +24,7 @@
 
 .bodyClass {
 
-	margin-left: 500px;
+	margin-left: 700px;
 	margin-top: 5%;
 
 }
@@ -105,4 +105,7 @@
 	font-size: 30px;
 }
 
+#timeStatus {
+	text-align: center;
+}
 
