@@ -17,7 +17,7 @@ var numberOfCols=10;
 var firstClick;
 
 //Number of mines in the grid.
-var numberOfMines = 2;
+var numberOfMines = 15;
 
 var timerObject;
 
@@ -84,7 +84,7 @@ function squareClick(row,col){
 		return;
 	} else {
 		//If all the neighbours of clicked cell doesnt contain any mines, explore the adjacent cells reccursively.
-		$('#button_'+row+'_'+col).css("background","green");
+		setTimeout(function(){$('#button_'+row+'_'+col).css("background","green")}, 100);
 		if(minesArray[row-1][col-1] == false &&
 			minesArray[row-1][col] == false  &&
 			minesArray[row-1][col+1] == false  &&
@@ -95,14 +95,14 @@ function squareClick(row,col){
 			minesArray[row+1][col+1] == false ) {
 				
 			//Breadth first search
-			squareClick(row-1,col-1);
-			squareClick(row-1,col);
-			squareClick(row-1,col+1);
-			squareClick(row,col-1);
-			squareClick(row,col+1);
-			squareClick(row+1,col-1);
-			squareClick(row+1,col);
-			squareClick(row+1,col+1);
+			setTimeout(function(){squareClick(row-1,col-1);},100);
+			setTimeout(function(){squareClick(row-1,col);},100);
+			setTimeout(function(){squareClick(row-1,col+1);},100);
+			setTimeout(function(){squareClick(row,col-1);},100);
+			setTimeout(function(){squareClick(row,col+1);},100);
+			setTimeout(function(){squareClick(row+1,col-1);},100);
+			setTimeout(function(){squareClick(row+1,col);},100);
+			setTimeout(function(){squareClick(row+1,col+1);},100);
 				
 			
 			} 
